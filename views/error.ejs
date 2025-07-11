@@ -1,0 +1,9 @@
+<%- layout("layouts/boilerplate") %>
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Error <%= err.status %>: <%= err.message %>
+        </h4>
+        <p>
+            <%= err.stack %>
+        </p>
+        <a href="/events" class="btn btn-secondary">Back</a>
+    </div>

@@ -1,0 +1,75 @@
+<%- layout("layouts/boilerplate") %>
+    <h1 class="text-center">Edit Event</h1>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <form action="/events/<%= event._id %>?_method=PUT" method="POST" class="validatedForm" novalidate>
+                <div class="mb-2">
+                    <label for="name" class="form-label">Event Name</label>
+                    <input type="text" name="event[name]" id="name" class="form-control" value="<%= event.name %>"
+                        required>
+                    <div class="invalid-feedback">
+                        Name is required.
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label for="date" class="form-label">Event Date</label>
+                    <input type="text" name="event[date]" id="date" class="form-control" value="<%= event.date %>"
+                        required>
+                    <div class="invalid-feedback">
+                        Date is required.
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label for="startTime" class="form-label">Start Time</label>
+                    <input type="text" name="event[startTime]" id="startTime" class="form-control"
+                        value="<%= event.startTime %>" required>
+                    <div class="invalid-feedback">
+                        Start time is required.
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" name="event[location]" id="location" class="form-control"
+                        value="<%= event.location %>" required>
+                    <div class="invalid-feedback">
+                        Location is required.
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" name="event[price]" id="price" class="form-control" value="<%= event.price %>"
+                        required>
+                    <div class="invalid-feedback">
+                        Price is required.
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="event[description]" id="description" class="form-control"
+                        required><%= event.description %></textarea>
+                    <div class="invalid-feedback">
+                        Description is required.
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <button class="btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>
