@@ -5,10 +5,12 @@ const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
 const ExpressError = require("./utils/ExpressError");
 const eventsRouter = require("./routes/events");
+const usersRouter = require("./routes/users");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+const User = require("./models/user");
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1:27017/chessclub')
@@ -52,11 +54,13 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
+    res.locals.currentUser = req.user;
     next();
 });
 
 //routes
 app.use("/events", eventsRouter);
+app.use("/", usersRouter);
 
 app.get("/", (req, res) => {
     res.render("home");

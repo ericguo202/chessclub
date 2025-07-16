@@ -1,0 +1,17 @@
+<%- layout("layouts/boilerplate") %>
+    <h1>Member Login</h1>
+    <p>Not a member? <a href="/register">Register</a></p>
+    <form action="/login" method="POST" class="validatedForm" novalidate>
+        <div class="mb-2">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" name="username" id="username" class="form-control" required>
+            <div class="invalid-feedback">
+                You must enter a username. Don't have one? <a href="/register">Register</a>.
+            </div>
+        </div>
+        <div class="mb-2">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="password" id="password" class="form-control" required>
+        </div>
+        <button class="btn btn-success">Log In</button>
+    </form>
