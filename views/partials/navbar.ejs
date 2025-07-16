@@ -9,9 +9,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <div class="navbar-nav">
-                <a class="nav-link" href="/">Home</a>
-                <a class="nav-link" href="/events">All Events</a>
-                <a class="nav-link" href="/events/new">New Event</a>
+                <a class="nav-link" href="/events">Events</a>
+                <% if (currentUser) { %>
+                    <a class="nav-link" href="/events/new">New Event</a>
+                    <% } %>
             </div>
             <div class="navbar-nav ms-auto">
                 <% if (!currentUser) { %>

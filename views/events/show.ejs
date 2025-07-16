@@ -20,11 +20,13 @@
                 </li>
             </ul>
             <div class="card-body">
-                <a href="/events/<%= event._id %>/edit" class="card-link btn btn-success">Edit Event</a>
-                <form action="/events/<%= event._id %>?_method=DELETE" method="POST" class="d-inline">
-                    <button class="btn btn-danger">Delete Event</button>
-                </form>
-                <a href="/events" class="btn btn-primary">Back</a>
+                <% if (currentUser) { %>
+                    <a href="/events/<%= event._id %>/edit" class="card-link btn btn-success">Edit Event</a>
+                    <form action="/events/<%= event._id %>?_method=DELETE" method="POST" class="d-inline">
+                        <button class="btn btn-danger">Delete Event</button>
+                    </form>
+                    <% } %>
+                        <a href="/events" class="btn btn-primary">Back</a>
             </div>
         </div>
     </div>
