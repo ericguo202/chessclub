@@ -11,3 +11,10 @@ module.exports.eventSchema = Joi.object({
     }).required()
 });
 
+module.exports.postSchema = Joi.object({
+    post: Joi.object({
+        body: Joi.string().required()
+    }).required()
+});
+
+
