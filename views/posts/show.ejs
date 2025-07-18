@@ -1,0 +1,24 @@
+<%- layout("layouts/boilerplate") %>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Posted by <%= post.author.username %>
+                </div>
+                <div class="card-body">
+                    <%= post.body %>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <%= post.date %>
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <a href="/forum/<%= post._id %>/edit" class="card-link btn btn-info">Edit Post</a>
+                    <form action="/forum/<%= post._id %>?_method=DELETE" method="POST" class="d-inline">
+                        <button class="btn btn-danger">Delete Post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

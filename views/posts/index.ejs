@@ -6,6 +6,7 @@
                 <div class="mb-2">
                     <label for="body" class="form-label">New Post</label>
                     <textarea name="post[body]" id="body" class="form-control" required></textarea>
+                    <div class="form-text">Please be respectful in the forum.</div>
                 </div>
                 <button class="btn btn-success">Submit</button>
             </form>
@@ -13,10 +14,13 @@
             <% for (let post of posts) { %>
                 <div class="card mb-3">
                     <div class="card-header">
-                        Posted by <%= post.author.username %>
+                        Posted by <%= post.author.username %> on <%= post.date %>
                     </div>
                     <div class="card-body">
                         <%= post.body %>
+                    </div>
+                    <div class="card-footer">
+                        3 comments <a href="/forum/<%= post._id %>">More Details</a>
                     </div>
                 </div>
                 <% } %>
