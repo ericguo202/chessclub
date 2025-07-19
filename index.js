@@ -7,6 +7,7 @@ const ExpressError = require("./utils/ExpressError");
 const eventsRouter = require("./routes/events");
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
+const commentsRouter = require("./routes/comments");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
@@ -62,7 +63,8 @@ app.use((req, res, next) => {
 //routes
 app.use("/events", eventsRouter);
 app.use("/", usersRouter);
-app.use("/", postsRouter);
+app.use("/forum", postsRouter);
+app.use("/", commentsRouter);
 
 app.get("/", (req, res) => {
     res.render("home");

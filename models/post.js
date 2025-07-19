@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
     body: {
-        type: String,
-        required: true
+        type: String
     },
     author: {
         type: Schema.Types.ObjectId,
@@ -13,7 +12,21 @@ const postSchema = new Schema({
     },
     date: {
         type: String
+    },
+    isComment: {
+        type: Boolean
+    },
+    comments: [
+        { type: Schema.Types.ObjectId, ref: "Post" }
+    ]
+});
+
+postSchema.post("findOneAndDelete", async (post) => {
+    if (post.comments) {
+        await Post.deleteMany({ _id: { $in: post.comments } });
     }
 });
 
-module.exports = mongoose.model("Post", postSchema);
+const Post = mongoose.model("Post", postSchema);
+
+module.exports = Post;

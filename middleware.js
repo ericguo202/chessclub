@@ -1,5 +1,6 @@
 const ExpressError = require("./utils/ExpressError");
 const { eventSchema, postSchema } = require("./joiSchemas");
+const Post = require("./models/post");
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -36,4 +37,25 @@ module.exports.validatePost = (req, res, next) => {
     else {
         next();
     }
+}
+
+module.exports.isPostAuthor = async (req, res, next) => {
+    const { id } = req.params;
+    const post = await Post.findById(id);
+    if (!post.author.equals(req.user._id)) {
+        req.flash("error", "You are not allowed to perform this action");
+        return res.redirect(`/forum/${post._id}`);
+    }
+    next();
+}
+
+module.exports.isCommentAuthor = async (req, res, next) => {
+    const { id, commentId } = req.params;
+    const post = await Post.findById(id);
+    const comment = await Post.findById(commentId);
+    if (!comment.author.equals(req.user._id)) {
+        req.flash("error", "You are not allowed to perform this action");
+        return res.redirect(`/forum/${post._id}`);
+    }
+    next();
 }

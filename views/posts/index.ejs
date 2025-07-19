@@ -12,17 +12,20 @@
             </form>
 
             <% for (let post of posts) { %>
-                <div class="card mb-3">
-                    <div class="card-header">
-                        Posted by <%= post.author.username %> on <%= post.date %>
+                <% if (!post.isComment) { %>
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            Posted by <%= post.author.username %> on <%= post.date %>
+                        </div>
+                        <div class="card-body">
+                            <%= post.body %>
+                        </div>
+                        <div class="card-footer">
+                            <%= post.comments.length %> comment<%= post.comments.length==1 ? "" : "s" %> <a
+                                        href="/forum/<%= post._id %>">More Details</a>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <%= post.body %>
-                    </div>
-                    <div class="card-footer">
-                        3 comments <a href="/forum/<%= post._id %>">More Details</a>
-                    </div>
-                </div>
-                <% } %>
+                    <% } %>
+                        <% } %>
         </div>
     </div>
