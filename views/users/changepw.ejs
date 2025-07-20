@@ -1,0 +1,21 @@
+<%- layout("layouts/boilerplate") %>
+    <h1 class="text-center">Change Password</h1>
+    <div class="row">
+        <form action="/change-password" method="POST" class="validatedForm col-md-6 offset-md-3" novalidate>
+            <div class="mb-2">
+                <label for="oldpw" class="form-label">Old Password</label>
+                <input type="password" id="oldpw" name="oldpw" class="form-control" required>
+                <div class="invalid-feedback">
+                    You must enter your old password to change your password.
+                </div>
+            </div>
+            <div class="mb-2">
+                <label for="newpw" class="form-label">New Password</label>
+                <input type="password" id="newpw" name="newpw" class="form-control" minlength="3" required>
+                <div class="invalid-feedback">
+                    Password is too short!
+                </div>
+            </div>
+            <button class="btn btn-success">Change Password</button>
+        </form>
+    </div>

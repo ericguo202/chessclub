@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const passport = require("passport");
-const { storeReturnTo } = require("../middleware");
+const { storeReturnTo, isLoggedIn } = require("../middleware");
 
 router.get("/register", (req, res) => {
     res.render("users/register");
@@ -39,12 +39,35 @@ router.post("/login", storeReturnTo, passport.authenticate("local", { failureFla
     res.redirect(redirectUrl);
 });
 
-router.get("/logout", (req, res, next) => {
+router.get("/logout", isLoggedIn, (req, res, next) => {
     req.logout((err) => {
         if (err) return next(err);
         req.flash("success", "Logged you out");
         res.redirect("/");
     });
-})
+});
+
+router.get("/dashboard", isLoggedIn, (req, res) => {
+    res.render("users/dashboard", { user: req.user });
+});
+
+router.get("/change-password", isLoggedIn, (req, res) => {
+    res.render("users/changepw");
+});
+
+router.post("/change-password", isLoggedIn, async (req, res) => {
+    const { oldpw, newpw } = req.body;
+    const user = await User.findById(req.user._id);
+    await user.changePassword(oldpw, newpw, (err) => {
+        if (err) {
+            req.flash("error", "The password you entered is incorrect");
+            return res.redirect("/change-password");
+        }
+        else {
+            req.flash("success", "Successfully changed password!");
+            res.redirect("/");
+        }
+    });
+});
 
 module.exports = router;
