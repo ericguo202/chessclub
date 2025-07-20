@@ -20,7 +20,7 @@
                 </li>
             </ul>
             <div class="card-body">
-                <% if (currentUser) { %>
+                <% if (currentUser && currentUser.isAdmin) { %>
                     <a href="/events/<%= event._id %>/edit" class="card-link btn btn-success">Edit Event</a>
                     <form action="/events/<%= event._id %>?_method=DELETE" method="POST" class="d-inline">
                         <button class="btn btn-danger">Delete Event</button>

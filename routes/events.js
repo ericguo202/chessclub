@@ -1,21 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Event = require("../models/event");
-const ExpressError = require("../utils/ExpressError");
-const { eventSchema } = require("../joiSchemas");
-const { isLoggedIn } = require("../middleware");
-
-const validateEvent = (req, res, next) => {
-    const { error } = eventSchema.validate(req.body);
-
-    if (error) {
-        const msg = error.details.map(el => el.message).join(",");
-        throw new ExpressError(msg, 400);
-    }
-    else {
-        next();
-    }
-}
+const { isLoggedIn, validateEvent, isAdmin } = require("../middleware");
 
 router.get("/", async (req, res) => {
     const events = await Event.find({});
@@ -26,7 +12,7 @@ router.get("/new", isLoggedIn, (req, res) => {
     res.render("events/new");
 });
 
-router.post("/", isLoggedIn, validateEvent, async (req, res) => {
+router.post("/", isLoggedIn, isAdmin, validateEvent, async (req, res) => {
     const event = new Event(req.body.event);
     await event.save();
     req.flash("success", "Successfully created event.");
@@ -45,14 +31,14 @@ router.get("/:id/edit", isLoggedIn, async (req, res) => {
     res.render("events/edit", { event });
 });
 
-router.put("/:id", isLoggedIn, validateEvent, async (req, res) => {
+router.put("/:id", isLoggedIn, isAdmin, validateEvent, async (req, res) => {
     const { id } = req.params;
     const event = await Event.findByIdAndUpdate(id, req.body.event, { runValidators: true, new: true });
     req.flash("success", "Successfully updated event.")
     res.redirect(`/events/${event._id}`);
 });
 
-router.delete("/:id", isLoggedIn, async (req, res) => {
+router.delete("/:id", isLoggedIn, isAdmin, async (req, res) => {
     const { id } = req.params;
     const event = await Event.findByIdAndDelete(id);
     req.flash("success", "Event deleted.");

@@ -11,7 +11,7 @@ router.get("/register", (req, res) => {
 router.post("/register", async (req, res) => {
     try {
         const { username, email, password } = req.body;
-        const user = new User({ username, email });
+        const user = new User({ username, email, isAdmin: false });
         const registeredUser = await User.register(user, password);
         req.login(registeredUser, (err) => {
             if (err) return next(err);
@@ -68,6 +68,12 @@ router.post("/change-password", isLoggedIn, async (req, res) => {
             res.redirect("/");
         }
     });
+});
+
+router.post("/admin", isLoggedIn, async (req, res) => {
+    const user = await User.findByIdAndUpdate(req.user._id, { isAdmin: true }, { new: true });
+    req.flash("success", "You are now an admin!");
+    res.redirect("/dashboard");
 });
 
 module.exports = router;

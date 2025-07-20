@@ -1,18 +1,20 @@
 <%- layout("layouts/boilerplate") %>
-    <h1>All Events</h1>
-    <a href="/events/new">New Event</a>
-    <div class="row">
-        <% for (let event of events) { %>
-            <div class="card mb-3 col-md-6">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <%= event.name %>
-                    </h5>
-                    <p class="card-text">
-                        <%= event.date %>
-                    </p>
-                    <a href="/events/<%= event._id %>" class="btn btn-primary">More Details</a>
-                </div>
+    <h1 class="text-center">All Events</h1>
+    <% if (currentUser && currentUser.isAdmin) { %>
+        <a href="/events/new">New Event</a>
+        <% } %>
+            <div class="row">
+                <% for (let event of events) { %>
+                    <div class="card mb-3 col-md-6">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= event.name %>
+                            </h5>
+                            <p class="card-text">
+                                <%= event.date %>
+                            </p>
+                            <a href="/events/<%= event._id %>" class="btn btn-primary">More Details</a>
+                        </div>
+                    </div>
+                    <% } %>
             </div>
-            <% } %>
-    </div>

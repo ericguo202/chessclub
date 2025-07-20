@@ -4,6 +4,9 @@
             <div class="card mb-3">
                 <div class="card-header">
                     Posted by <%= post.author.username %>
+                        <% if (post.author.isAdmin) { %>
+                            <span class="badge text-bg-primary">Admin</span>
+                            <% } %>
                 </div>
                 <div class="card-body">
                     <%= post.body %>
@@ -23,7 +26,7 @@
                         <button class="btn btn-success">Add Comment</button>
                     </form>
                 </div>
-                <% if (post.author._id.equals(currentUser._id)) { %>
+                <% if (post.author._id.equals(currentUser._id) || currentUser.isAdmin) { %>
                     <div class="card-body">
                         <a href="/forum/<%= post._id %>/edit" class="card-link btn btn-info">Edit Post</a>
                         <form action="/forum/<%= post._id %>?_method=DELETE" method="POST" class="d-inline">
@@ -41,13 +44,16 @@
                         <div class="card mb-3">
                             <div class="card-header">
                                 Posted by <%= comment.author.username %>
+                                    <% if (comment.author.isAdmin) { %>
+                                        <span class="badge text-bg-primary">Admin</span>
+                                        <% } %>
                             </div>
                             <div class="card-body">
                                 <%= comment.body %>
                             </div>
                             <div class="card-footer">
                                 <%= comment.date %>
-                                    <% if (comment.author._id.equals(currentUser._id)) { %>
+                                    <% if (comment.author._id.equals(currentUser._id) || currentUser.isAdmin) { %>
                                         <form action="/forum/<%= post._id %>/comments/<%= comment._id %>?_method=DELETE"
                                             method="POST" class="d-inline">
                                             <button class="btn btn-link">Delete</button>

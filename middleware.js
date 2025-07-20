@@ -11,6 +11,15 @@ module.exports.isLoggedIn = (req, res, next) => {
     next();
 }
 
+module.exports.isAdmin = (req, res, next) => {
+    if (!req.user.isAdmin) {
+        req.flash("error", "You do not have permission to perform this action");
+        console.log(req.originalUrl);
+        return res.redirect(req.originalUrl);
+    }
+    next();
+}
+
 module.exports.storeReturnTo = (req, res, next) => {
     if (req.session.returnTo) res.locals.returnTo = req.session.returnTo;
     next();
@@ -39,21 +48,21 @@ module.exports.validatePost = (req, res, next) => {
     }
 }
 
-module.exports.isPostAuthor = async (req, res, next) => {
+module.exports.isPostAuthorOrAdmin = async (req, res, next) => {
     const { id } = req.params;
     const post = await Post.findById(id);
-    if (!post.author.equals(req.user._id)) {
+    if (!post.author.equals(req.user._id) && !req.user.isAdmin) {
         req.flash("error", "You are not allowed to perform this action");
         return res.redirect(`/forum/${post._id}`);
     }
     next();
 }
 
-module.exports.isCommentAuthor = async (req, res, next) => {
+module.exports.isCommentAuthorOrAdmin = async (req, res, next) => {
     const { id, commentId } = req.params;
     const post = await Post.findById(id);
     const comment = await Post.findById(commentId);
-    if (!comment.author.equals(req.user._id)) {
+    if (!comment.author.equals(req.user._id) && !req.user.isAdmin) {
         req.flash("error", "You are not allowed to perform this action");
         return res.redirect(`/forum/${post._id}`);
     }
