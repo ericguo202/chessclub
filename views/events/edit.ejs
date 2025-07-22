@@ -16,7 +16,7 @@
                 </div>
                 <div class="mb-2">
                     <label for="date" class="form-label">Event Date</label>
-                    <input type="text" name="event[date]" id="date" class="form-control" value="<%= event.date %>"
+                    <input type="date" name="event[date]" id="date" class="form-control" value="<%= event.date %>"
                         required>
                     <div class="invalid-feedback">
                         Date is required.
@@ -27,7 +27,7 @@
                 </div>
                 <div class="mb-2">
                     <label for="startTime" class="form-label">Start Time</label>
-                    <input type="text" name="event[startTime]" id="startTime" class="form-control"
+                    <input type="time" name="event[startTime]" id="startTime" class="form-control"
                         value="<%= event.startTime %>" required>
                     <div class="invalid-feedback">
                         Start time is required.
@@ -73,3 +73,4 @@
             </form>
         </div>
     </div>
+    <script src="/scripts/checkDate.js"></script>
