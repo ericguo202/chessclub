@@ -16,7 +16,7 @@
                         <%= post.date %>
                     </li>
                 </ul>
-                <div class="card-body">
+                <div class="card-body hidden" id="commentForm">
                     <form action="/forum/<%= post._id %>/comments" method="POST" class="validatedForm" novalidate>
                         <div class="mb-2">
                             <label for="body" class="form-label">New Comment</label>
@@ -28,6 +28,7 @@
                 </div>
                 <% if (post.author._id.equals(currentUser._id) || currentUser.isAdmin) { %>
                     <div class="card-body">
+                        <button class="btn btn-success" id="addCommentButton">Add Comment</button>
                         <a href="/forum/<%= post._id %>/edit" class="card-link btn btn-info">Edit Post</a>
                         <form action="/forum/<%= post._id %>?_method=DELETE" method="POST" class="d-inline">
                             <button class="btn btn-danger">Delete Post</button>
@@ -64,3 +65,4 @@
                         <% } %>
         </div>
     </div>
+    <script src="/scripts/toggleHidden.js"></script>
