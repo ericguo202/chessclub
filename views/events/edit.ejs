@@ -2,7 +2,7 @@
     <h1 class="text-center">Edit Event</h1>
     <div class="row">
         <div class="col-6 offset-3">
-            <form action="/events/<%= event._id %>?_method=PUT" method="POST" class="validatedForm" novalidate>
+            <form action="/events/<%= event._id %>?_method=PUT" method="POST" class="validatedForm" novalidate enctype="multipart/form-data">
                 <div class="mb-2">
                     <label for="name" class="form-label">Event Name</label>
                     <input type="text" name="event[name]" id="name" class="form-control" value="<%= event.name %>"
@@ -68,6 +68,11 @@
                     <div class="valid-feedback">
                         Looks good!
                     </div>
+                </div>
+                <div class="mb-2">
+                    <label for="image" class="form-label"><%= event.image.url ? "Do you want to replace the current image?" : "Do you want to add an image?"%></label>
+                    <img src="<%= event.image.url %>" class="img-thumbnail" width="300px" alt="">
+                    <input type="file" id="image" name="event[image]" class="form-control">
                 </div>
                 <button class="btn btn-success">Submit</button>
             </form>

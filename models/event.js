@@ -8,7 +8,11 @@ const eventSchema = new Schema({
     startTime: String,
     location: String,
     description: String,
-    price: Number
+    price: Number,
+    image: {
+        url: String,
+        filename: String
+    }
 });
 
 const Event = mongoose.model("Event", eventSchema);

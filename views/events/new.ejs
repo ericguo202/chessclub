@@ -2,7 +2,7 @@
     <h1 class="text-center">New Event</h1>
     <div class="row">
         <div class="col-6 offset-3">
-            <form action="/events" method="POST" class="validatedForm" novalidate>
+            <form action="/events" method="POST" class="validatedForm" novalidate enctype="multipart/form-data">
                 <div class="mb-2">
                     <label for="name" class="form-label">Event Name</label>
                     <input type="text" name="event[name]" id="name" class="form-control" required>
@@ -62,6 +62,10 @@
                     <div class="valid-feedback">
                         Looks good!
                     </div>
+                </div>
+                <div class="mb-2">
+                    <label for="image" class="form-label">Image/Flyer (optional)</label>
+                    <input type="file" id="image" name="event[image]" class="form-control">
                 </div>
                 <button class="btn btn-success">Create Event</button>
             </form>
