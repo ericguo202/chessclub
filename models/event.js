@@ -15,6 +15,11 @@ const eventSchema = new Schema({
     }
 });
 
+eventSchema.virtual("dateTime").get(function() {
+    const dateTime = new Date(`${this.date}T${this.startTime}`);
+    return dateTime;
+});
+
 const Event = mongoose.model("Event", eventSchema);
 
 module.exports = Event;

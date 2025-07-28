@@ -15,9 +15,9 @@
                 </p>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Date: <%= event.date %>
+                <li class="list-group-item">Date: <%= event.dateTime.toLocaleDateString() %>
                 </li>
-                <li class="list-group-item">Start Time: <%= event.startTime %>
+                <li class="list-group-item">Start Time: <%= event.dateTime.toLocaleTimeString() %>
                 </li>
                 <li class="list-group-item">Location: <%= event.location %>
                 </li>
