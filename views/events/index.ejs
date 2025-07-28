@@ -6,7 +6,11 @@
             <div class="row d-flex justify-content-between">
                 <% for (let event of events) { %>
                     <div class="card mb-3 col-md-6">
-                        <img src="<%= event.image.url %>" width="100%" alt="">
+                        <div class="row">
+                            <div class="col-6 offset-3">
+                                <img src="<%= event.image.url %>" width="100%" alt="">
+                            </div>
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title">
                                 <%= event.name %>

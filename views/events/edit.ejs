@@ -1,7 +1,7 @@
 <%- layout("layouts/boilerplate") %>
     <h1 class="text-center">Edit Event</h1>
     <div class="row">
-        <div class="col-6 offset-3">
+        <div class="col-md-6 offset-md-3">
             <form action="/events/<%= event._id %>?_method=PUT" method="POST" class="validatedForm" novalidate enctype="multipart/form-data">
                 <div class="mb-2">
                     <label for="name" class="form-label">Event Name</label>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="mb-2">
                     <label for="image" class="form-label"><%= event.image.url ? "Do you want to replace the current image?" : "Do you want to add an image?"%></label>
-                    <img src="<%= event.image.url %>" class="img-thumbnail" width="300px" alt="">
+                    <img src="<%= event.image.url %>" class="img-thumbnail" width="200px" alt="">
                     <input type="file" id="image" name="event[image]" class="form-control">
                 </div>
                 <button class="btn btn-success">Submit</button>

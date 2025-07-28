@@ -1,79 +1,25 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/user");
 const passport = require("passport");
 const { storeReturnTo, isLoggedIn } = require("../middleware");
+const users = require("../controllers/users");
 
-router.get("/register", (req, res) => {
-    res.render("users/register");
-});
+router.route("/register")
+    .get(users.renderRegisterForm)
+    .post(users.register);
 
-router.post("/register", async (req, res) => {
-    try {
-        const { username, email, password } = req.body;
-        const user = new User({ username, email, isAdmin: false });
-        const registeredUser = await User.register(user, password);
-        req.login(registeredUser, (err) => {
-            if (err) return next(err);
-            req.flash("success", "Welcome!");
-            res.redirect("/");
-        });
-    }
-    catch (e) {
-        req.flash("error", e.message);
-        res.redirect("/register");
-    }
-});
+router.route("/login")
+    .get(users.renderLoginForm)
+    .post(passport.authenticate("local", { failureFlash: true, failureRedirect: "/login" }), users.login)
 
-router.get("/login", (req, res) => {
-    if (req.isAuthenticated()) {
-        req.flash("error", "Already logged in!");
-        return res.redirect("/");
-    }
-    res.render("users/login");
-});
+router.get("/logout", isLoggedIn, users.logout);
 
-router.post("/login", storeReturnTo, passport.authenticate("local", { failureFlash: true, failureRedirect: "/login" }), (req, res) => {
-    req.flash("success", `Welcome back, ${req.user.username}!`);
-    const redirectUrl = res.locals.returnTo || "/";
-    res.redirect(redirectUrl);
-});
+router.get("/dashboard", isLoggedIn, users.renderDashboard);
 
-router.get("/logout", isLoggedIn, (req, res, next) => {
-    req.logout((err) => {
-        if (err) return next(err);
-        req.flash("success", "Logged you out");
-        res.redirect("/");
-    });
-});
+router.route("/change-password")
+    .get(isLoggedIn, users.renderChangePasswordForm)
+    .post(isLoggedIn, users.changePassword);
 
-router.get("/dashboard", isLoggedIn, (req, res) => {
-    res.render("users/dashboard", { user: req.user });
-});
-
-router.get("/change-password", isLoggedIn, (req, res) => {
-    res.render("users/changepw");
-});
-
-router.post("/change-password", isLoggedIn, async (req, res) => {
-    const { oldpw, newpw } = req.body;
-    const user = await User.findById(req.user._id);
-    await user.changePassword(oldpw, newpw, (err) => {
-        if (err) {
-            req.flash("error", "The password you entered is incorrect");
-            return res.redirect("/change-password");
-        }
-        else {
-            req.flash("success", "Successfully changed password!");
-            res.redirect("/");
-        }
-    });
-});
-
-router.post("/admin", isLoggedIn, async (req, res) => {
-    const user = await User.findByIdAndUpdate(req.user._id, { isAdmin: true }, { new: true });
-    req.flash("success", "You are now an admin!");
-    res.redirect("/dashboard");
-});
+router.post("/admin", isLoggedIn, users.makeAdmin);
 
 module.exports = router;
