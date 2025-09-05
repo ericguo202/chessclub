@@ -2,8 +2,3 @@
     <h1 class="text-center">Welcome, <%= user.username %>
     </h1>
     <a href="/change-password">Change Password</a>
-    <% if (!currentUser.isAdmin) { %>
-        <form action="/admin" method="POST">
-            <button class="btn btn-danger">Make Me an Admin!</button>
-        </form>
-        <% } %>
