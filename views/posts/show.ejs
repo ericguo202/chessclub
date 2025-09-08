@@ -13,7 +13,7 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <%= post.date.toLocaleString() %>
+                        <%= post.date.toLocaleString('en-US', { timeZone: 'America/New_York' }) %>
                     </li>
                 </ul>
                 <div class="card-body hidden" id="commentForm">
@@ -53,7 +53,7 @@
                                 <%= comment.body %>
                             </div>
                             <div class="card-footer">
-                                <%= comment.date.toLocaleString() %>
+                                <%= comment.date.toLocaleString('en-US', { timeZone: 'America/New_York' }) %>
                                     <% if (comment.author._id.equals(currentUser._id) || currentUser.isAdmin) { %>
                                         <form action="/forum/<%= post._id %>/comments/<%= comment._id %>?_method=DELETE"
                                             method="POST" class="d-inline">

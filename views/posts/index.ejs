@@ -19,7 +19,7 @@
                                 <% if (post.author.isAdmin) { %>
                                     <span class="badge text-bg-primary">Admin</span>
                                     <% } %>
-                                        on <%= post.date.toLocaleString() %>
+                                        on <%= post.date.toLocaleString('en-US', { timeZone: 'America/New_York' }) %>
                         </div>
                         <div class="card-body">
                             <%= post.body %>
