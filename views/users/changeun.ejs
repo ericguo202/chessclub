@@ -1,0 +1,25 @@
+<%- layout("layouts/boilerplate") %>
+    <h1 class="text-center">Change Username</h1>
+    <div class="row">
+        <form action="/change-username" method="POST" class="validatedForm col-md-6 offset-md-3" novalidate
+            id="changeUnForm">
+            <div class="mb-2">
+                <p>Your current username is <%= currentUser.username %>
+                </p>
+                <label for="newUn" class="form-label">New username</label>
+                <input type="text" id="newUn" name="newUn" class="form-control" required>
+                <div class="invalid-feedback">
+                    Your username cannot be empty.
+                </div>
+            </div>
+            <div class="mb-2">
+                <label for="confirmUn" class="form-label">Please confirm your new username</label>
+                <input type="text" id="confirmUn" name="confirmUn" class="form-control" required>
+                <div class="invalid-feedback">
+                    Usernames do not match!
+                </div>
+            </div>
+            <button class="btn btn-success">Change Username</button>
+        </form>
+    </div>
+    <script src="/scripts/checkMatchingUsernames.js"></script>

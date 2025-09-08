@@ -19,7 +19,7 @@
                                 <% if (post.author.isAdmin) { %>
                                     <span class="badge text-bg-primary">Admin</span>
                                     <% } %>
-                                        on <%= post.date %>
+                                        on <%= post.date.toLocaleString() %>
                         </div>
                         <div class="card-body">
                             <%= post.body %>

@@ -8,7 +8,7 @@ module.exports.allPosts = async (req, res) => {
 module.exports.createPost = async (req, res) => {
     const post = new Post(req.body.post);
     post.author = req.user._id;
-    post.date = new Date().toLocaleString();
+    post.date = new Date();
     post.isComment = false;
     await post.save();
     req.flash("success", "Succesfully added post");

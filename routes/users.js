@@ -20,6 +20,10 @@ router.route("/change-password")
     .get(isLoggedIn, users.renderChangePasswordForm)
     .post(isLoggedIn, users.changePassword);
 
+router.route("/change-username")
+    .get(isLoggedIn, users.renderChangeUsernameForm)
+    .post(isLoggedIn, users.changeUsername);
+
 router.post("/admin", isLoggedIn, users.makeAdmin);
 
 module.exports = router;

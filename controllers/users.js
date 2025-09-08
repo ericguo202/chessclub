@@ -66,6 +66,24 @@ module.exports.changePassword = async (req, res) => {
     });
 }
 
+module.exports.renderChangeUsernameForm = (req, res) => {
+    res.render("users/changeun");
+}
+
+module.exports.changeUsername = async (req, res) => {
+    const { newUn } = req.body;
+    const user = await User.findById(req.user._id);
+    user.username = newUn;
+    await user.save();
+
+    // logs user back in with new username
+    req.login(user, (err) => {
+        if (err) return next(err);
+        req.flash("success", `Username changed to ${newUn}`);
+        res.redirect("/");
+    });
+}
+
 module.exports.makeAdmin = async (req, res) => {
     await User.findByIdAndUpdate(req.user._id, { isAdmin: true }, { new: true });
     req.flash("success", "You are now an admin!");

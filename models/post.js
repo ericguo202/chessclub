@@ -1,3 +1,4 @@
+const { date } = require("joi");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -10,7 +11,7 @@ const postSchema = new Schema({
         ref: "User"
     },
     date: {
-        type: String
+        type: Date
     },
     isComment: {
         type: Boolean
