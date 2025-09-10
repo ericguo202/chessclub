@@ -7,7 +7,8 @@ module.exports.eventSchema = Joi.object({
         startTime: Joi.string().required(),
         location: Joi.string().required(),
         description: Joi.string().required(),
-        price: Joi.number().required().min(0)
+        price: Joi.number().required().min(0),
+        link: Joi.string()
     }).required()
 });
 
@@ -15,6 +16,12 @@ module.exports.postSchema = Joi.object({
     post: Joi.object({
         body: Joi.string().required()
     }).required()
+});
+
+module.exports.signupSchema = Joi.object({
+    name: Joi.string().required(),
+    email: Joi.string().required(),
+    grade: Joi.number().required(),
 });
 
 

@@ -10,6 +10,7 @@ const ExpressError = require("./utils/ExpressError");
 const eventsRouter = require("./routes/events");
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
+const signupRouter = require("./routes/signups");
 const commentsRouter = require("./routes/comments");
 const session = require("express-session");
 const flash = require("connect-flash");
@@ -22,7 +23,9 @@ const dbUrl = process.env.DB_URL;
 const MongoStore = require("connect-mongo");
 
 const mongoose = require('mongoose');
-mongoose.connect(dbUrl)
+
+// for reference development mode mongodb://127.0.0.1:27017/chessclub
+mongoose.connect("mongodb://127.0.0.1:27017/chessclub")
     .then(() => {
         console.log("Connected to Mongoose");
     }).catch((err) => {
@@ -56,7 +59,7 @@ store.on("error", (e) => {
 });
 
 const sessionConfig = {
-    store,
+    // store,
     name: "session",
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -130,6 +133,7 @@ app.use("/events", eventsRouter);
 app.use("/", usersRouter);
 app.use("/forum", postsRouter);
 app.use("/", commentsRouter);
+app.use("/", signupRouter);
 
 app.get("/", (req, res) => {
     res.render("home");

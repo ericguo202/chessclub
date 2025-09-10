@@ -12,10 +12,11 @@ const eventSchema = new Schema({
     image: {
         url: String,
         filename: String
-    }
+    },
+    link: String
 });
 
-eventSchema.virtual("dateTime").get(function() {
+eventSchema.virtual("dateTime").get(function () {
     const dateTime = new Date(`${this.date}T${this.startTime}`);
     return dateTime;
 });

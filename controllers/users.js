@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Signup = require("../models/signup");
 
 module.exports.renderRegisterForm = (req, res) => {
     res.render("users/register");
@@ -88,4 +89,9 @@ module.exports.makeAdmin = async (req, res) => {
     await User.findByIdAndUpdate(req.user._id, { isAdmin: true }, { new: true });
     req.flash("success", "You are now an admin!");
     res.redirect("/dashboard");
+}
+
+module.exports.viewSignups = async (req, res) => {
+    const signups = await Signup.find({});
+    res.render("users/signupDashboard", { signups });
 }

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-const { storeReturnTo, isLoggedIn } = require("../middleware");
+const { storeReturnTo, isLoggedIn, isAdmin } = require("../middleware");
 const users = require("../controllers/users");
 
 router.route("/register")
@@ -25,5 +25,7 @@ router.route("/change-username")
     .post(isLoggedIn, users.changeUsername);
 
 router.post("/admin", isLoggedIn, users.makeAdmin);
+
+router.get("/admin/signups-dashboard", isLoggedIn, isAdmin, users.viewSignups);
 
 module.exports = router;

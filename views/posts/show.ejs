@@ -13,7 +13,7 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <%= post.date.toLocaleString('en-US', { timeZone: 'America/New_York' }) %>
+                        <span class="post-date" data-date="<%= post.date.toISOString() %>"></span>
                     </li>
                 </ul>
                 <div class="card-body hidden" id="commentForm">
@@ -53,16 +53,17 @@
                                 <%= comment.body %>
                             </div>
                             <div class="card-footer">
-                                <%= comment.date.toLocaleString('en-US', { timeZone: 'America/New_York' }) %>
-                                    <% if (comment.author._id.equals(currentUser._id) || currentUser.isAdmin) { %>
-                                        <form action="/forum/<%= post._id %>/comments/<%= comment._id %>?_method=DELETE"
-                                            method="POST" class="d-inline">
-                                            <button class="btn btn-link">Delete</button>
-                                        </form>
-                                        <% } %>
+                                <span class="post-date" data-date="<%= comment.date.toISOString() %>"></span>
+                                <% if (comment.author._id.equals(currentUser._id) || currentUser.isAdmin) { %>
+                                    <form action="/forum/<%= post._id %>/comments/<%= comment._id %>?_method=DELETE"
+                                        method="POST" class="d-inline">
+                                        <button class="btn btn-link">Delete</button>
+                                    </form>
+                                    <% } %>
                             </div>
                         </div>
                         <% } %>
         </div>
     </div>
     <script src="/scripts/toggleHidden.js"></script>
+    <script src="/scripts/renderDate.js"></script>

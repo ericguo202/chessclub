@@ -1,11 +1,13 @@
 <%- layout("layouts/boilerplate") %>
-    <h1 class="text-center">Register</h1>
-    <form action="/register" method="POST" class="validatedForm" novalidate>
+    <h1 class="text-center">Sign Up Form</h1>
+    <p class="text-center">This is not the form to register for an account for this website. You will need an account to
+        view the forum. Please do so <a href="/register">here</a>.</p>
+    <form action="/sign-up" method="POST" class="validatedForm" novalidate>
         <div class="mb-2">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" name="username" id="username" class="form-control" required>
+            <label for="name" class="form-label">Name</label>
+            <input type="text" name="name" id="name" class="form-control" required>
             <div class="invalid-feedback">
-                Your account must have a username.
+                Name is required.
             </div>
             <div class="valid-feedback">
                 Looks good!
@@ -22,14 +24,14 @@
             </div>
         </div>
         <div class="mb-2">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" name="password" id="password" class="form-control" minlength="3" required>
+            <label for="grade" class="form-label">Grade Level</label>
+            <input type="number" name="grade" id="grade" class="form-control" min="9" max="12" required>
             <div class="invalid-feedback">
-                Password is too short!
+                Grade must be between 9 and 12.
             </div>
             <div class="valid-feedback">
                 Looks good!
             </div>
         </div>
-        <button class="btn btn-success">Register</button>
+        <button class="btn btn-success">Sign Up</button>
     </form>

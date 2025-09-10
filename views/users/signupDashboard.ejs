@@ -1,0 +1,34 @@
+<%- layout("layouts/boilerplate") %>
+    <h1 class="text-center">Signups for the LHS Chess Club</h1>
+    <p class="text-center">This is not the form to register for an account for this website. You will need an account to
+        view the forum. Please do so <a href="/register">here</a>.</p>
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (const signup of signups) { %>
+                        <tr>
+                            <td>
+                                <%= signup.name %>
+                            </td>
+                            <td>
+                                <a href="mailto:<%= signup.email %>">
+                                    <%= signup.email %>
+                                </a>
+                            </td>
+                            <td>
+                                <%= signup.grade %>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>

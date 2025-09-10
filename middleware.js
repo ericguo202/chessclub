@@ -1,5 +1,5 @@
 const ExpressError = require("./utils/ExpressError");
-const { eventSchema, postSchema } = require("./joiSchemas");
+const { eventSchema, postSchema, signupSchema } = require("./joiSchemas");
 const Post = require("./models/post");
 
 module.exports.isLoggedIn = (req, res, next) => {
@@ -39,6 +39,17 @@ module.exports.validateEvent = (req, res, next) => {
 
 module.exports.validatePost = (req, res, next) => {
     const { error } = postSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(",");
+        throw new ExpressError(msg, 400);
+    }
+    else {
+        next();
+    }
+}
+
+module.exports.validateSignup = (req, res, next) => {
+    const { error } = signupSchema.validate(req.body);
     if (error) {
         const msg = error.details.map(el => el.message).join(",");
         throw new ExpressError(msg, 400);

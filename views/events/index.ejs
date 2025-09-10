@@ -5,7 +5,7 @@
         <% } %>
             <div class="row" id="allEventsContainer">
                 <% for (let event of events) { %>
-                    <div class="card event-card">
+                    <div class="card event-card event" data-date="<%= event.dateTime.toISOString() %>">
                         <div class="row">
                             <div class="col-6 offset-3">
                                 <img src="<%= event.image.url %>" width="100%" alt="" crossorigin="anonymous">
@@ -23,3 +23,4 @@
                     </div>
                     <% } %>
             </div>
+            <script src="/scripts/sortEventsByDate.js"></script>

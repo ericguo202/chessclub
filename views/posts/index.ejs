@@ -19,7 +19,7 @@
                                 <% if (post.author.isAdmin) { %>
                                     <span class="badge text-bg-primary">Admin</span>
                                     <% } %>
-                                        on <%= post.date.toLocaleString('en-US', { timeZone: 'America/New_York' }) %>
+                                        on <span class="post-date" data-date="<%= post.date.toISOString() %>"></span>
                         </div>
                         <div class="card-body">
                             <%= post.body %>
@@ -33,3 +33,4 @@
                         <% } %>
         </div>
     </div>
+    <script src="/scripts/renderDate.js"></script>

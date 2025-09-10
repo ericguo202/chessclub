@@ -81,6 +81,10 @@
                         <% } %>
                             <input type="file" id="image" name="event[image]" class="form-control">
                 </div>
+                <div class="mb-2">
+                    <label for="link" class="form-label">Registration link (optional)</label>
+                    <input type="text" id="link" name="event[link]" class="form-control" value="<%= event.link %>">
+                </div>
                 <button class="btn btn-success">Submit</button>
             </form>
         </div>
