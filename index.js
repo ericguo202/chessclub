@@ -25,7 +25,7 @@ const MongoStore = require("connect-mongo");
 const mongoose = require('mongoose');
 
 // for reference development mode mongodb://127.0.0.1:27017/chessclub
-mongoose.connect("mongodb://127.0.0.1:27017/chessclub")
+mongoose.connect(dbUrl)
     .then(() => {
         console.log("Connected to Mongoose");
     }).catch((err) => {
@@ -59,7 +59,7 @@ store.on("error", (e) => {
 });
 
 const sessionConfig = {
-    // store,
+    store,
     name: "session",
     secret: process.env.SESSION_SECRET,
     resave: false,
