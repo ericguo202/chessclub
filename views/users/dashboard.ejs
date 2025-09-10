@@ -3,3 +3,8 @@
     </h1>
     <a href="/change-username">Change Username</a>
     <a href="/change-password">Change Password</a>
+
+    <% if (currentUser.isAdmin) { %>
+        <h2>Admin Dashboard</h2>
+        <a href="/admin/signups-dashboard">View signups</a>
+        <% } %>
